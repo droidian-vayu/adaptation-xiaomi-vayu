@@ -1,7 +1,4 @@
-/etc/apt/sources.list.d
-/etc/apt/preferences.d
 /etc/apt/package-sideload-create.d
-/etc/apt/trusted.gpg.d
 /etc/systemd/system/multi-user.target.wants
 /var/lib/bluetooth
 /etc/systemd/system/graphical.target.wants
