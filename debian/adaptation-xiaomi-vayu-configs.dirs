@@ -3,3 +3,4 @@
 /var/lib/bluetooth
 /etc/systemd/system/graphical.target.wants
 /var/log/droidian-adaptation
+/usr/lib/systemd/system/ModemManager.service.d
