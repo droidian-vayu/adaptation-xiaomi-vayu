@@ -25,7 +25,7 @@ Depends: ${misc:Depends},
          yubikey-luks,
          man,
          manpages,
-
+         wl-clipboard,
 Pre-Depends:  libglib2.0-0t64 (>= 2.81.1),
 Conflicts: adaptation-droidian-vayu,
            adaptation-vayu-configs,
