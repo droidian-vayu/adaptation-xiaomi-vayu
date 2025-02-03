@@ -10,3 +10,4 @@
 /usr/lib/droid-vendor-overlay/etc/init/hw
 /usr/lib/droid-vendor-overlay/etc/vintf
 /usr/lib/droid-vendor-overlay/etc/permissions/sku_nfc
+/var/lib/waydroid
