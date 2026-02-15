@@ -6,3 +6,4 @@
 /etc/systemd/system/droidian-adapt-fix-bluetooth-inotify-autorestart.service /etc/systemd/system/multi-user.target.wants/droidian-adapt-fix-bluetooth-inotify-autorestart.service
 /etc/systemd/system/droidian-adapt-fix-phosh-brightness-xiaomi-vayu.service /etc/systemd/system/graphical.target.wants/droidian-adapt-fix-phosh-brightness-xiaomi-vayu.service
 /etc/systemd/system/droidian-adapt-fix-appstreamcli-apt-glib-stdout.service /etc/systemd/system/multi-user.target.wants/droidian-adapt-fix-appstreamcli-apt-glib-stdout.service
+/etc/systemd/system/binder-ofono-simslot-autoconf.service /etc/systemd/system/graphical.target.wants/binder-ofono-simslot-autoconf.service
