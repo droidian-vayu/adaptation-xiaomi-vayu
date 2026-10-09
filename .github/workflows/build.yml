@@ -36,6 +36,7 @@ jobs:
           sed -i 's/^deb /deb [trusted=yes] /' /etc/apt/sources.list.d/*.list
 
           apt-get update
+          apt-get install binutils-aarch64-linux-gnu
 
           cd /buildd/sources
           chmod +x debian/rules
