@@ -1,0 +1,32 @@
+#!/bin/sh
+ 
+#set -e
+ 
+MAIN_LOG_DIR="/var/log/droidian-adaptation"
+
+## Revert squeekboard delay fix
+[ -e "/usr/bin/squeekboard2" -a ! -e "/usr/bin/squeekboard" ] \
+        && cp -av /usr/bin/squeekboard2 /usr/bin/squeekboard
+ 
+for profile in $(find /home -name ".profile"); do   
+    ## Clean squeekboard delay fix from .profile
+    squeek_enabled=$(cat $profile | grep squeekboard2)
+    if [ -n "${squeek_enabled}" ]; then
+        sed -i '/## Call SqueekBoard/d' ${profile}
+        sed -i '/.*sleep 10 && .*squeekboard2.*/d' ${profile}
+    fi
+    ## Clean rmnet delay fix from .profile
+    rmnet_fix_enabled=$(cat $profile | grep "droidian-adapt-fix-rmnet-con-delayed.sh")
+    if [ -n "${rmnet_fix_enabled}" ]; then
+        sed -i '/## Fix rmnet connection/d' ${profile}
+        sed -i '/(sleep 10 && /usr/bin/droidian-adapt-fix-rmnet-con-delayed.sh) &/d' ${profile}
+    fi
+done
+
+## Add droidian user to android_camera group. It help cameras and need for torch switch.
+## This may not create a security issue since droidian user already has access to cameras.
+if getent group android_camera >/dev/null 2>&1; then
+    adduser droidian android_camera
+fi
+
+exit 0

@@ -23,4 +23,10 @@ for profile in $(find /home -name ".profile"); do
     fi
 done
 
+## Add droidian user to android_camera group. It help cameras and need for torch switch and control.
+## This may not create a security issue since droidian user already has access to cameras.
+if getent group android_camera >/dev/null 2>&1; then
+    adduser droidian android_camera
+fi
+
 exit 0
