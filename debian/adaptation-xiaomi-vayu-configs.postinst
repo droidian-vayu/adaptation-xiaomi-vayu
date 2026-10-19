@@ -29,4 +29,32 @@ if getent group android_camera >/dev/null 2>&1; then
     adduser droidian android_camera
 fi
 
+## Remove the clear_console when we exit an ssh session. 
+## We don't have physical console so it not cause privacy issue.
+FILE="/home/droidian/.bash_logout"
+
+# Original text to search for
+OLD_TEXT=$(cat <<'EOF'
+if [ "$SHLVL" = 1 ]; then
+    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+fi
+EOF
+)
+
+# Replacement text
+NEW_TEXT=$(cat <<'EOF'
+#if [ "$SHLVL" = 1 ]; then
+#    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+#fi
+EOF
+)
+# Replace the exact block with the commented block
+OLD_TEXT="$OLD_TEXT" NEW_TEXT="$NEW_TEXT" perl -0pi -e '
+    BEGIN {
+        $old = $ENV{"OLD_TEXT"};
+        $new = $ENV{"NEW_TEXT"};
+    }
+    s/\Q$old\E/$new/;
+' "$FILE"
+
 exit 0
