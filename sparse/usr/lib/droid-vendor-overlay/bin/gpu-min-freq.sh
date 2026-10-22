@@ -1,3 +1,4 @@
+#!/system/bin/sh
 # On Droidian the the scheduler is not scaling the GPU frequency correctly 
 # The GPU Frequency stay to min_freq (275MHz) but it works correctly with Waydroid.
 # So we force the min_freq with the max_freq (675MHz) to force GPU to max frequency.
@@ -9,7 +10,6 @@
 # It need to wait about 130 seconds before applying the new value, and after after 
 # the application of the new max_freq so it need exec_background.
 
-#!/system/bin/sh
 
 echo "GPU script started" > /dev/kmsg
 
