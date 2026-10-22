@@ -1,8 +1,9 @@
+#!/system/bin/sh
 # On Droidian the GPU max freq is not correct with Droidian/Salifish vendor
 # It is limited to 585MHz instead of 675Mhz 
 # So we change max_freq to 675MHz
 # It need to wait about 120 seconds before applying the new value.
-#!/system/bin/sh
+
 
 echo "GPU Max script started" > /dev/kmsg
 
