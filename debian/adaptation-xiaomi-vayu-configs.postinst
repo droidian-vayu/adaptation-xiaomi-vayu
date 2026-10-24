@@ -57,4 +57,80 @@ OLD_TEXT="$OLD_TEXT" NEW_TEXT="$NEW_TEXT" perl -0pi -e '
     s/\Q$old\E/$new/;
 ' "$FILE"
 
+## PROVISIONAL : Add commit : 825b34943b22e37a0f613f09fcd25d394b95a74b in usr/sbin/mount-android.sh
+## We need this commit but it is not include in lxc-android for now
+## https://github.com/droidian/lxc-android/commit/825b34943b22e37a0f613f09fcd25d394b95a74b
+## To remove with lxc-android > 1:39+git20250906140358
+FILE="/usr/sbin/mount-android.sh"
+
+# Block to search for - 1
+BLOCK=$(cat <<'EOF'
+mount -t overlay overlay -o lowerdir=/usr/lib/droid-system-overlay:/var/lib/lxc/android/rootfs/system /var/lib/lxc/android/rootfs/system
+EOF
+)
+
+# Line to add after the block - 1
+ADD_LINE=$(cat <<'EOF'
+        echo "overlayed on /var/lib/lxc/android/rootfs/system"
+        if [ -d "/android/system" ]; then
+            mount -t overlay overlay -o lowerdir=/usr/lib/droid-system-overlay:/android/system /android/system
+            echo "overlayed on /android/system"
+        fi
+EOF
+)
+
+# Add the line after the block if it does not already exist - 1
+BLOCK="$BLOCK" ADD_LINE="$ADD_LINE" perl -0pi -e '
+    BEGIN {
+        $block = $ENV{"BLOCK"};
+        $line  = $ENV{"ADD_LINE"};
+    }
+
+    if (/\Q$block\E/) {
+        $after_block = $+[0];
+
+        # Check if the line exists immediately after the block
+        $remaining = substr($_, $after_block);
+
+        unless ($remaining =~ /\A(?:\r?\n)?\Q$line\E(?:\r?\n|\z)/) {
+            substr($_, $after_block, 0) = "\n" . $line;
+        }
+    }
+' "$FILE"
+
+# Block to search for - 2
+BLOCK=$(cat <<'EOF'
+mount -t overlay overlay -o lowerdir=/var/lib/lxc/android/rootfs/system,upperdir=/usr/lib/droid-system-overlay,workdir=/var/lib/lxc/android/ /var/lib/lxc/android/rootfs/system
+EOF
+)
+
+# Line to add after the block - 2
+ADD_LINE=$(cat <<'EOF'
+        echo "overlayed on /var/lib/lxc/android/rootfs/system"
+        if [ -d "/android/system" ]; then
+            mount -t overlay overlay -o lowerdir=/android/system,upperdir=/usr/lib/droid-system-overlay,workdir=/android/ /android/system
+            echo "overlayed on /android/system"
+        fi
+EOF
+)
+
+# Add the line after the block if it does not already exist - 2
+BLOCK="$BLOCK" ADD_LINE="$ADD_LINE" perl -0pi -e '
+    BEGIN {
+        $block = $ENV{"BLOCK"};
+        $line  = $ENV{"ADD_LINE"};
+    }
+
+    if (/\Q$block\E/) {
+        $after_block = $+[0];
+
+        # Check if the line exists immediately after the block
+        $remaining = substr($_, $after_block);
+
+        unless ($remaining =~ /\A(?:\r?\n)?\Q$line\E(?:\r?\n|\z)/) {
+            substr($_, $after_block, 0) = "\n" . $line;
+        }
+    }
+' "$FILE"
+
 exit 0
