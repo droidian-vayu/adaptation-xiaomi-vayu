@@ -57,6 +57,16 @@ OLD_TEXT="$OLD_TEXT" NEW_TEXT="$NEW_TEXT" perl -0pi -e '
     s/\Q$old\E/$new/;
 ' "$FILE"
 
+## Install mixer_paths_overlay_static.xml only if we don't have adaptation-xiaomi-vayu-miui-vendor-configs installed,
+## because this file is for Droidian Vendor only.
+## And if we don't have an /usr/lib/droid-vendor-overlay/etc/mixer_paths_overlay_static.xml.override file
+## Make an empty /usr/lib/droid-vendor-overlay/etc/mixer_paths_overlay_static.xml.override file to keep you 
+## personalized mixer_paths_overlay_static.xml.
+if [ ! -e /usr/lib/droid-vendor-overlay/etc/mixer_paths_overlay_static.xml.override ] && # Test if /usr/lib/droid-vendor-overlay/etc/mixer_paths_overlay_static.xml.override exist.
+   ! dpkg-query -W -f='${Status}' adaptation-xiaomi-vayu-miui-vendor-configs 2>/dev/null | grep -q 'install ok installed'; then # Test if package exist
+    cp -a /usr/lib/droid-vendor-overlay/etc/mixer_paths_overlay_static_droidian_vendor.xml /usr/lib/droid-vendor-overlay/etc/mixer_paths_overlay_static.xml
+fi
+
 ## PROVISIONAL : Add commit : 825b34943b22e37a0f613f09fcd25d394b95a74b in usr/sbin/mount-android.sh
 ## We need this commit but it is not include in lxc-android for now
 ## https://github.com/droidian/lxc-android/commit/825b34943b22e37a0f613f09fcd25d394b95a74b
