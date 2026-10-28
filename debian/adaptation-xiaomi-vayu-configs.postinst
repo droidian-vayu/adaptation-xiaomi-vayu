@@ -29,6 +29,12 @@ if getent group android_camera >/dev/null 2>&1; then
     adduser droidian android_camera
 fi
 
+## Add droidian user to android_media group. For video hardware recording with mic on Droidian 
+## we need to have acces to /dev/socket/micshm that is own by android_media
+if getent group android_media >/dev/null 2>&1; then
+    adduser droidian android_media
+fi
+
 ## Remove the clear_console when we exit an ssh session. 
 ## We don't have physical console so it not cause privacy issue.
 FILE="/home/droidian/.bash_logout"
