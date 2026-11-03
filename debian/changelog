@@ -1,4 +1,4 @@
-adaptation-xiaomi-vayu (15) trixie; urgency=medium
+adaptation-xiaomi-vayu (17) trixie; urgency=medium
 
   * Update debian changelog
   * Config: Add droidian user to android_media group + android_camera group
