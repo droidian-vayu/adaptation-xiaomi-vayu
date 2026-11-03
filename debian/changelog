@@ -1,3 +1,20 @@
+adaptation-xiaomi-vayu (15) trixie; urgency=medium
+
+  * Update debian changelog
+  * Config: Add droidian user to android_media group + android_camera group
+  * Update Build workflow
+  * halium: libaudioclient: fix audio in droidian-camera qt6 hw mode
+  * halium: droidmedia: fix missing libminisf
+  * Forcing GPU max_freq to 675MHz
+  * Forcing GPU min_freq to 675MHz to provisionally fix the scheduler lock to the minimal freq (the energy scheduler swith it to the real min_freq, when we don't need max_freq)
+  * flashlightd: fix torch button: switch to sysfs workaround + chmod + chown /sys/class/leds/flashlight/brightness
+  * Config ssh: Remove the clear_console when we exit an ssh session
+  * Audio: Mic mapping corrections (built-in/Back mic) and increase mic volumes
+  * Audio : script to Install mixer_paths_overlay_static.xml only with Droidian Vendor and test an override file
+  * PROVISIONAL : lxc-android: Add commit in usr/sbin/mount-android.sh
+
+ -- DavidDharma <DavidDharma@disroot.org>  Tue, 3 Nov 2026 17:55:10 +0200
+
 adaptation-xiaomi-vayu (14+git20240815230534.34ca2cd.droidian) trixie; urgency=medium
 
   * Update debian changelog
