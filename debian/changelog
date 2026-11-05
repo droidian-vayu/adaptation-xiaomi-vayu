@@ -1,3 +1,9 @@
+adaptation-xiaomi-vayu (17.1) trixie; urgency=medium
+
+  * Update login.keyring rm on first boot. rm is replaced by mv and an initialized file is make to really execute only on first boot. 
+
+ -- DavidDharma <DavidDharma@disroot.org>  Tue, 5 Nov 2026 23:56:03 +0200
+
 adaptation-xiaomi-vayu (17) trixie; urgency=medium
 
   * Update debian changelog
